@@ -4,31 +4,39 @@ using UnityEngine;
 
 public class BallMove : MonoBehaviour
 {
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if(collision.gameObject.tag)
-    //}
-    //
+    private void ontriggerenter2d(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Brick")
+        {
+
+        }
+    }
     // Start is called before the first frame update
+
     void Start()
     {
+        Transform tr = GetComponent<Transform>();
         Vector3 BallVec = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.A))
+        RotateFire();
+    }
+    void RotateFire()
+    {
+        if (Input.GetKey(KeyCode.Z))
         {
-            transform.Rotate(-1f, 0, 0);
+            transform.Rotate(0, 0, -1f);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.X))
         {
-            transform.Rotate(1f, 0, 0);
+            transform.Rotate(0, 0, 1f);
         }
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            transform.position += new Vector3(0, 0.01f, 0);
+            transform.position = transform.position + transform.up * 0.01f;
         }
     }
 }
