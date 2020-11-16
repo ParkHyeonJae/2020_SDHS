@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +6,6 @@ public class PaddleController : MonoBehaviour
 {
     [Range(1.0f, 5.0f)]
     [SerializeField] float m_fSpeed = 2.0f;
-
-
     private void OnEnable()
     {
         StartCoroutine(Loop());
