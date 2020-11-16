@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+[SelectionBase]
+[DisallowMultipleComponent]
 public class Brick : MonoBehaviour
 {
     private BrickSimulate m_brickSimulate;
@@ -20,7 +22,6 @@ public class Brick : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        Debug.Log("충돌 테스트");
         if (m_brickSimulate.Hit(coll))
         {
             OnDestroy?.Invoke();
