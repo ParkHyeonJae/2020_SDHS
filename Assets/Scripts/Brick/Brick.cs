@@ -22,6 +22,10 @@ public abstract class Brick : MonoBehaviour
         m_brickSimulate = new BrickSimulate();
         OnDestroy = DestroyAction;
     }
+
+    /// <summary>
+    /// 벽돌이 사라졌을 때 일어다는 Action을 처리
+    /// </summary>
     protected virtual void DestroyAction()
     {
         brickPool?.push(this.gameObject);

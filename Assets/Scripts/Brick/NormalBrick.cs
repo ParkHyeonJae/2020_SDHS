@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalBrick : Brick
+public sealed class NormalBrick : Brick
 {
     protected override void DestroyAction()
     {

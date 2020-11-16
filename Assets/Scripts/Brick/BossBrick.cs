@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossBrick : Brick
+public sealed class BossBrick : Brick
 {
     protected override void DestroyAction()
     {
-        base.DestroyAction();
+        //base.DestroyAction();
 
-
+        Destroy(this.gameObject);
     }
 }
