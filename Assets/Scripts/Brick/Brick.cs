@@ -5,19 +5,26 @@ using UnityEngine;
 
 [SelectionBase]
 [DisallowMultipleComponent]
-public class Brick : MonoBehaviour
+public abstract class Brick : MonoBehaviour
 {
     private BrickSimulate m_brickSimulate;
     private Action OnDestroy;
+
+    private objectPool brickPool = null;
+
+    public void SetPool(objectPool brickPool)
+    {
+        this.brickPool = brickPool;
+    }
 
     private void OnEnable()
     {
         m_brickSimulate = new BrickSimulate();
         OnDestroy = DestroyAction;
     }
-    private void DestroyAction()
+    protected virtual void DestroyAction()
     {
-        Destroy(this.gameObject);
+        brickPool?.push(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D coll)

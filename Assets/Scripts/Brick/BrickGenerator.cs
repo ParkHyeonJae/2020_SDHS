@@ -25,6 +25,9 @@ public class BrickGenerator : MonoBehaviour
         for (int i = 0; i < m_nSpawnCount; i++) 
         {
             GameObject _obj = brickPool.pop();
+
+            if (_obj.TryGetComponent(out Brick brick)) { brick.SetPool(brickPool); }
+            else Debug.LogError("Polling Object Not Found");
             int row = i % m_nRowClamp;
             int height = i / m_nRowClamp;
             _obj.transform.position = new Vector3(
