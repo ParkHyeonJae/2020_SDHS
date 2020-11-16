@@ -53,10 +53,11 @@ public class BrickGenerator : MonoBehaviour
             else Debug.LogError("Polling Object Not Found");
 
             SetBrickPosition(_obj, m_startGeneratePosition.position, row, height, m_fSpacing);
-            //_obj.transform.position = new Vector3(
-            //    m_startGeneratePosition.position.x + row * m_fSpacing
-            //    , m_startGeneratePosition.position.y + height * m_fSpacing, 0);
         }
+    }
+    private void OnDisable()
+    {
+        brickPool.reset();
     }
     private void SetBrickPosition(GameObject target,  Vector3 startPosition, int row, int height, float spacing)
     {

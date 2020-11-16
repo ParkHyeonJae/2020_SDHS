@@ -31,7 +31,7 @@ public abstract class Brick : MonoBehaviour
         brickPool?.push(this.gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D coll)
+    private void OnCollisionEnter2D(Collision2D coll)
     {
         if (m_brickSimulate.Hit(coll))
         {
@@ -42,9 +42,9 @@ public abstract class Brick : MonoBehaviour
 
 public class BrickSimulate
 {
-    public bool Hit(Collider2D coll)
+    public bool Hit(Collision2D coll)
     {
-        if (coll.CompareTag("Ball"))
+        if (coll.transform.CompareTag("Ball"))
         {
             return true;
         }

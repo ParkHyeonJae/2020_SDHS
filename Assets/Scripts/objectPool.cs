@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class objectPool
 {
@@ -49,6 +50,8 @@ public class objectPool
         if (queue.Count <= 0) Initalize(this.count);
         (obj = queue.Dequeue()).SetActive(true);
         return obj; }
+
+    public void reset() => queue.ToList().ForEach(e => e.SetActive(false));
     public void Print()
     {
         foreach (var v in queue)
