@@ -30,7 +30,7 @@ public class BallTestMove : MonoBehaviour
         }
         else if (coll.transform.CompareTag("Paddle"))
         {
-            rigidbody2D.AddForce(new Vector2(PaddleController.dirVelocity.x * 20f, -1f));
+            rigidbody2D.AddForce(new Vector2(PaddleController.dirVelocity.x * 15f, -1f));
             //rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x * (PaddleController.dirVelocity.x * 200f), rigidbody2D.velocity.y * -1f) * 1.005f;
         }
         rigidbody2D.AddForce(new Vector2(0.5f, 0.5f), ForceMode2D.Impulse);

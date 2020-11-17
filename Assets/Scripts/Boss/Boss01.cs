@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Boss01 : Boss
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+
+    protected override void BossAlarm(BossPhase bossPhase)
     {
-        
+        switch (bossPhase)
+        {
+            case BossPhase.Attack:
+                brickGenerator.gameObject.SetActive(false);
+
+                break;
+            case BossPhase.Defense:
+                brickGenerator.gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
 }

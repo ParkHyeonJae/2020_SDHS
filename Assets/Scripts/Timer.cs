@@ -31,8 +31,8 @@ namespace InGame.Manager
 		}
 		public float GetTime() => m_fAccumulateTime;
 		public float Operate() => Accumulation;
-		
 
+		public void Init() => m_fAccumulateTime = m_fTime;
 		public bool LimitOperate() => (m_bIsIncreaseTime) ? Accumulation >= m_fTime : Accumulation <= 0f;
 		public override string ToString()
 		{
