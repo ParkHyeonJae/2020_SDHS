@@ -11,7 +11,7 @@ public sealed class BossBrick : Brick
         Boss _boss = FindObjectOfType<Boss>();
         _boss.TakeDamage(1f);
         Destroy(this.gameObject);
-
+        CameraShake.OnShake(0.5f, 0.1f);
         _boss.brickGenerator.Invoke("Rebuild", 0.5f);
         //_boss.brickGenerator.gameObject.SetActive(false);
         //_boss.brickGenerator.gameObject.SetActive(true);

@@ -20,6 +20,9 @@ public class BallTestMove : MonoBehaviour
         while (gameObject.activeInHierarchy)
         {
             rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity, MaxVelocity);
+
+            if (rigidbody2D.velocity.magnitude < 1)
+                rigidbody2D.velocity = new Vector2(speed, speed);
             yield return null;
         }
     }

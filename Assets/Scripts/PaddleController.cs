@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PaddleMode
+{
+    Limited,
+    Freedom
+}
+
 public class PaddleController : MonoBehaviour
 {
     [Range(1.0f, 10.0f)]
