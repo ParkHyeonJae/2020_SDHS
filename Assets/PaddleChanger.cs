@@ -21,6 +21,9 @@ public class PaddleChanger : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Assert(m_limitedPaddle != null, "NullRerference");
+        Debug.Assert(m_freedomPaddle != null, "NullRerference");
+
         OnChangePaddle = ChangePaddle;
         paddleMode = PaddleMode.Limited;
         ChangePaddle(paddleMode);
