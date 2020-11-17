@@ -45,6 +45,6 @@ public class Boss01 : Boss
 
     protected override void BossDead()
     {
-        
+        Debug.Log("Boss01 Dead");
     }
 }

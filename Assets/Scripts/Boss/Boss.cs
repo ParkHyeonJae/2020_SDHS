@@ -22,7 +22,8 @@ public abstract class Boss : MonoBehaviour
 
     public BossPhase SetPhase(BossPhase bossPhase) => phase = bossPhase;
 
-    protected BrickGenerator brickGenerator;
+    [HideInInspector]
+    public BrickGenerator brickGenerator;
     public System.Action<BossPhase> OnPhaseAlarm;
     public System.Action OnBossDeath;
 
@@ -35,10 +36,15 @@ public abstract class Boss : MonoBehaviour
         }
         return false;
     }
-
+    public void AppendHP(float hp)
+    {
+        m_fHP += hp;
+        DeathCheck(m_fHP);
+    }
     public void TakeDamage(float damage) 
     { 
         m_fHP -= damage;
+        Debug.Log("Current HP : " + m_fHP);
         DeathCheck(m_fHP);
     }
 

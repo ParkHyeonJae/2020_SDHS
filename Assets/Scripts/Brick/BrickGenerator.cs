@@ -23,20 +23,29 @@ public class BrickGenerator : MonoBehaviour
 
     private objectPool brickPool;
     private GameObject _bossBrick = null;
-    private void OnEnable()
+
+    private void Awake()
     {
         Debug.Assert(m_oNormalBrickPrefabs != null, "Nullreference");
         Debug.Assert(m_oBossHeartBrickPrefabs != null, "Nullreference");
 
-        _bossBrick = null;
+        
         brickPool = new objectPool(m_oNormalBrickPrefabs, m_nSpawnCount, transform);
+    }
+
+    private void OnEnable() => ActiveOn();
+    private void OnDisable() => ActiveOff();
+
+    private void ActiveOn()
+    {
+        _bossBrick = null;
 
         int groundHeight = m_nSpawnCount / m_nRowClamp;
-        int bossHeartHeight = Random.Range(groundHeight - 3, groundHeight);
+        int bossHeartHeight = Random.Range(groundHeight - 2, groundHeight);
         int bossHeartWidth = Random.Range(0, m_nRowClamp);
         int row;
         int height;
-        for (int i = 0; i < m_nSpawnCount; i++) 
+        for (int i = 0; i < m_nSpawnCount; i++)
         {
             row = i % m_nRowClamp;
             height = i / m_nRowClamp;
@@ -56,16 +65,23 @@ public class BrickGenerator : MonoBehaviour
             SetBrickPosition(_obj, m_startGeneratePosition.position, row, height, m_fSpacing);
         }
     }
-    private void OnDisable()
+
+    private void ActiveOff()
     {
         brickPool.reset();
         if (_bossBrick == null)
             return;
         if (_bossBrick.TryGetComponent(out Brick brick))
         {
-            brick.OnDestroy?.Invoke();
+            Destroy(_bossBrick);
         }
         else Debug.LogError("brickPool Brick Component Not Found");
+    }
+
+    public void Rebuild()
+    {
+        ActiveOff();
+        ActiveOn();
     }
     private void SetBrickPosition(GameObject target,  Vector3 startPosition, int row, int height, float spacing)
     {

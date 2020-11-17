@@ -19,10 +19,7 @@ public class BallTestMove : MonoBehaviour
     {
         while (gameObject.activeInHierarchy)
         {
-            if (rigidbody2D.velocity.x >= MaxVelocity)
-                rigidbody2D.velocity = new Vector2(MaxVelocity, rigidbody2D.velocity.y);
-            else if (rigidbody2D.velocity.y >= MaxVelocity)
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, MaxVelocity);
+            rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity, MaxVelocity);
             yield return null;
         }
     }
@@ -30,12 +27,11 @@ public class BallTestMove : MonoBehaviour
     {
         if (coll.transform.CompareTag("Brick"))
         {
-            rigidbody2D.AddForce(new Vector2(0, -1f * speed));
+            rigidbody2D.AddForce(new Vector2(0, speed * -1f), ForceMode2D.Impulse);
         }
         else if (coll.transform.CompareTag("Paddle"))
         {
-            rigidbody2D.AddForce(new Vector2(PaddleController.dirVelocity.x * 10f, -1f * speed));
+            rigidbody2D.AddForce(new Vector2(PaddleController.dirVelocity.normalized.x * 5f, speed), ForceMode2D.Impulse);
         }
-        //rigidbody2D.AddForce(new Vector2(1.0f, 1.0f), ForceMode2D.Impulse);
     }
 }
