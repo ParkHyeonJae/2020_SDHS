@@ -29,7 +29,7 @@ public class CameraShake : MonoBehaviour
         while (curTime <= duration)
         {
             curTime += Time.deltaTime;
-            mainCam.transform.position = startPos + Random.insideUnitSphere * force;
+            mainCam.transform.position = startPos + Random.insideUnitSphere * force * Time.timeScale;
             yield return null;
         }
         mainCam.transform.position = startPos;

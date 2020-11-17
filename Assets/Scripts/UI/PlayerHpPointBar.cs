@@ -5,7 +5,7 @@ public class PlayerHpPointBar : PointBar
 {
     [SerializeField] int MaxPoint = 3;
     public static Action<int> OnAddPoint;
-    public static void SetPointCount(int maxPoint) => m_MaxPoint = maxPoint;
+    public void SetPointCount(int maxPoint) => m_MaxPoint = maxPoint;
 
     private void Awake()
     {
@@ -15,6 +15,8 @@ public class PlayerHpPointBar : PointBar
     public void OnAddPointFunc(int point)
     {
         AddPoint(point);
+        if (IsDead())
+            GameSystem.Instance.OnGameOver?.Invoke();
         CameraShake.OnShake(0.5f, 0.5f);
     }
 

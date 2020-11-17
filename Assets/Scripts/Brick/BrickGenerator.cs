@@ -25,7 +25,7 @@ public class BrickGenerator : MonoBehaviour
     
 
     private GameObject _bossBrick = null;
-    public static bool isInitalized = false;
+    public bool isInitalized = false;
     private void Awake()
     {
         if (isInitalized)

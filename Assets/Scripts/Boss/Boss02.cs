@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Boss01 : Boss
+public class Boss02 : Boss
 {
     [SerializeField] List<BossPattern> bossPatterns = new List<BossPattern>();
 
@@ -29,7 +29,6 @@ public class Boss01 : Boss
                 break;
             case BossPhase.Defense:
                 GamePlayLine.SetActive(true);
-
                 PaddleChanger.SetPaddle(PaddleMode.Limited);
 
                 SpawnBall();
@@ -72,7 +71,10 @@ public class Boss01 : Boss
     protected override void BossDead()
     {
         base.BossDead();
+        ballPool.reset();
+
+        bossSystem.SpawnBoss();
         gameObject.SetActive(false);
-        Debug.Log("Boss01 Dead");
+        Debug.Log("Boss02 Dead");
     }
 }

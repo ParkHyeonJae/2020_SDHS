@@ -2,7 +2,7 @@
 
 public abstract class PointBar : MonoBehaviour
 {
-    protected static int m_MaxPoint = 8;
+    protected int m_MaxPoint = 1;
 
     [SerializeField] int m_nCurPointCount = 0;
 
@@ -21,6 +21,8 @@ public abstract class PointBar : MonoBehaviour
         if (active) point_objects[m_nCurPointCount - 1].SetActive(active);
         else point_objects[m_nCurPointCount].SetActive(active);
     }
+
+    public bool IsDead() => m_nCurPointCount <= 0;
 
     private void OnEnable() => Initialize();
 

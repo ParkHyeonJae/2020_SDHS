@@ -35,7 +35,6 @@ public class PaddleController : MonoBehaviour
                     break;
                 case PaddleMode.Freedom:
                     dirVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * m_fSpeed;
-                    Debug.Log("TEST : " + dirVelocity);
                     rigidbody2D.velocity = dirVelocity;
                     break;
                 default:
