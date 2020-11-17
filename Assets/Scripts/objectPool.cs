@@ -6,6 +6,7 @@ using System.Linq;
 public class objectPool
 {
     public Queue<GameObject> queue = new Queue<GameObject>();
+    public List<GameObject> usedObject = new List<GameObject>();
     private int count = 0;
     private GameObject poolObject;
     private Transform parent;
@@ -43,15 +44,25 @@ public class objectPool
         InitTransform(obj.transform);
         obj.SetActive(false);
         queue.Enqueue(obj);
+        usedObject.Remove(obj);
     }
 
     GameObject obj = null;
     public GameObject pop() {
         if (queue.Count <= 0) Initalize(this.count);
         (obj = queue.Dequeue()).SetActive(true);
+        usedObject.Add(obj);
         return obj; }
 
-    public void reset() => queue.ToList().ForEach(e => e.SetActive(false));
+    public void reset()
+    {
+        usedObject.ForEach(e => {
+            InitTransform(e.transform);
+            obj.SetActive(false);
+            queue.Enqueue(e);
+        });
+        usedObject.Clear();
+    }
     public void Print()
     {
         foreach (var v in queue)

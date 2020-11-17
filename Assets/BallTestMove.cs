@@ -33,5 +33,9 @@ public class BallTestMove : MonoBehaviour
         {
             rigidbody2D.AddForce(new Vector2(PaddleController.dirVelocity.normalized.x * 5f, speed), ForceMode2D.Impulse);
         }
+        else
+        {
+            rigidbody2D.AddForce(new Vector2(speed, speed), ForceMode2D.Force);
+        }
     }
 }

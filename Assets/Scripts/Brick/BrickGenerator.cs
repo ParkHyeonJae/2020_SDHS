@@ -22,15 +22,20 @@ public class BrickGenerator : MonoBehaviour
 
 
     private objectPool brickPool;
-    private GameObject _bossBrick = null;
+    
 
+    private GameObject _bossBrick = null;
+    public static bool isInitalized = false;
     private void Awake()
     {
+        if (isInitalized)
+            return;
         Debug.Assert(m_oNormalBrickPrefabs != null, "Nullreference");
         Debug.Assert(m_oBossHeartBrickPrefabs != null, "Nullreference");
 
-        
+        Debug.Log("1111111111111");
         brickPool = new objectPool(m_oNormalBrickPrefabs, m_nSpawnCount, transform);
+        isInitalized = true;
     }
 
     private void OnEnable() => ActiveOn();
