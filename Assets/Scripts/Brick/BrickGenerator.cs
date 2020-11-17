@@ -22,12 +22,13 @@ public class BrickGenerator : MonoBehaviour
 
 
     private objectPool brickPool;
-
+    private GameObject _bossBrick = null;
     private void OnEnable()
     {
         Debug.Assert(m_oNormalBrickPrefabs != null, "Nullreference");
         Debug.Assert(m_oBossHeartBrickPrefabs != null, "Nullreference");
 
+        _bossBrick = null;
         brickPool = new objectPool(m_oNormalBrickPrefabs, m_nSpawnCount, transform);
 
         int groundHeight = m_nSpawnCount / m_nRowClamp;
@@ -42,7 +43,7 @@ public class BrickGenerator : MonoBehaviour
 
             if (height.Equals(bossHeartHeight) && row.Equals(bossHeartWidth))
             {
-                GameObject _bossBrick = MonoBehaviour.Instantiate(m_oBossHeartBrickPrefabs, transform);
+                _bossBrick = MonoBehaviour.Instantiate(m_oBossHeartBrickPrefabs, transform);
                 SetBrickPosition(_bossBrick, m_startGeneratePosition.position, row, height, m_fSpacing);
                 continue;
             }
@@ -58,6 +59,13 @@ public class BrickGenerator : MonoBehaviour
     private void OnDisable()
     {
         brickPool.reset();
+        if (_bossBrick == null)
+            return;
+        if (_bossBrick.TryGetComponent(out Brick brick))
+        {
+            brick.OnDestroy?.Invoke();
+        }
+        else Debug.LogError("brickPool Brick Component Not Found");
     }
     private void SetBrickPosition(GameObject target,  Vector3 startPosition, int row, int height, float spacing)
     {

@@ -20,14 +20,39 @@ public abstract class Boss : MonoBehaviour
 
     [SerializeField] BossPhase phase = BossPhase.Defense;
 
+    public BossPhase SetPhase(BossPhase bossPhase) => phase = bossPhase;
+
     protected BrickGenerator brickGenerator;
-    private System.Action<BossPhase> OnPhaseAlarm;
+    public System.Action<BossPhase> OnPhaseAlarm;
+    public System.Action OnBossDeath;
+
+    public bool DeathCheck(float _HP)
+    {
+        if(_HP <= 0)
+        {
+            OnBossDeath?.Invoke();
+            return true;
+        }
+        return false;
+    }
+
+    public void TakeDamage(float damage) 
+    { 
+        m_fHP -= damage;
+        DeathCheck(m_fHP);
+    }
+
+    protected abstract void InitPatterns();
+    protected abstract void BossAlarm(BossPhase bossPhase);
+    protected abstract void BossDead();
 
     private void Awake()
     {
+        InitPatterns();
         OnPhaseAlarm = BossAlarm;
+        OnBossDeath = BossDead;
     }
-    protected abstract void BossAlarm(BossPhase bossPhase);
+   
 
     private void OnEnable()
     {
@@ -39,16 +64,18 @@ public abstract class Boss : MonoBehaviour
     {
         while(gameObject.activeInHierarchy)
         {
-            curTime -= Time.deltaTime;
-            if (curTime < 0)
+            if (phase == BossPhase.Defense)
             {
-                if (phase == BossPhase.Attack)
-                    phase = BossPhase.Defense;
-                else phase = BossPhase.Attack;
+                curTime -= Time.deltaTime;
+                if (curTime < 0)
+                {
+                    if (phase == BossPhase.Defense)
+                        phase = BossPhase.Attack;
 
-                OnPhaseAlarm(phase);
+                    OnPhaseAlarm(phase);
 
-                curTime = m_fResetTime;
+                    curTime = m_fResetTime;
+                }
             }
             yield return null;
         }

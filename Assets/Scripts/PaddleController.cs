@@ -22,6 +22,7 @@ public class PaddleController : MonoBehaviour
         {
             dirVelocity = Vector3.right * Input.GetAxisRaw("Horizontal") * m_fSpeed;
             rigidbody2D.velocity = dirVelocity;
+                
             yield return null;
         }
         yield return null;

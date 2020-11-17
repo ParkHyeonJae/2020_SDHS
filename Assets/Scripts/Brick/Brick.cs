@@ -8,7 +8,7 @@ using UnityEngine;
 public abstract class Brick : MonoBehaviour
 {
     private BrickSimulate m_brickSimulate;
-    private Action OnDestroy;
+    public Action OnDestroy;
 
     private objectPool brickPool = null;
 
