@@ -19,11 +19,13 @@ public class Boss01 : Boss
         switch (bossPhase)
         {
             case BossPhase.Attack:
+                PaddleChanger.SetPaddle(PaddleMode.Freedom);
                 brickGenerator.gameObject.SetActive(false);
 
                 StartCoroutine(AttackLoop());
                 break;
             case BossPhase.Defense:
+                PaddleChanger.SetPaddle(PaddleMode.Limited);
                 brickGenerator.gameObject.SetActive(true);
                 break;
             default:

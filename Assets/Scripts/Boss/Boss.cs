@@ -12,7 +12,7 @@ public enum BossPhase
 
 public abstract class Boss : MonoBehaviour
 {
-    [SerializeField] float m_fHP = 10f;
+    [SerializeField] int m_nHP = 10;
 
     [Range(5f, 20f)]
     [SerializeField] float m_fResetTime = 10f;
@@ -27,7 +27,7 @@ public abstract class Boss : MonoBehaviour
     public System.Action<BossPhase> OnPhaseAlarm;
     public System.Action OnBossDeath;
 
-    public bool DeathCheck(float _HP)
+    public bool DeathCheck(int _HP)
     {
         if(_HP <= 0)
         {
@@ -36,16 +36,18 @@ public abstract class Boss : MonoBehaviour
         }
         return false;
     }
-    public void AppendHP(float hp)
+    public void AppendHP(int hp)
     {
-        m_fHP += hp;
-        DeathCheck(m_fHP);
+        m_nHP += hp;
+        BossHpPointBar.OnAddPoint(hp);
+        DeathCheck(m_nHP);
     }
-    public void TakeDamage(float damage) 
+    public void TakeDamage(int damage) 
     { 
-        m_fHP -= damage;
-        Debug.Log("Current HP : " + m_fHP);
-        DeathCheck(m_fHP);
+        m_nHP -= damage;
+        BossHpPointBar.OnAddPoint(-damage);
+        Debug.Log("Current HP : " + m_nHP);
+        DeathCheck(m_nHP);
     }
 
     protected abstract void InitPatterns();
@@ -57,6 +59,7 @@ public abstract class Boss : MonoBehaviour
         InitPatterns();
         OnPhaseAlarm = BossAlarm;
         OnBossDeath = BossDead;
+        BossHpPointBar.SetPointCount(m_nHP);
     }
    
 
