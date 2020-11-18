@@ -20,7 +20,7 @@ public class Boss02 : Boss
         {
             case BossPhase.Attack:
                 GamePlayLine.SetActive(false);
-                PaddleChanger.SetPaddle(PaddleMode.Freedom);
+                PaddleChanger.Instance.SetPaddle(PaddleMode.Freedom);
                 if (BallObject != null)
                     ballPool.push(BallObject);
                 brickGenerator.gameObject.SetActive(false);
@@ -29,7 +29,7 @@ public class Boss02 : Boss
                 break;
             case BossPhase.Defense:
                 GamePlayLine.SetActive(true);
-                PaddleChanger.SetPaddle(PaddleMode.Limited);
+                PaddleChanger.Instance.SetPaddle(PaddleMode.Limited);
 
                 SpawnBall();
 
@@ -71,9 +71,7 @@ public class Boss02 : Boss
     protected override void BossDead()
     {
         base.BossDead();
-        ballPool.reset();
 
-        bossSystem.SpawnBoss();
         gameObject.SetActive(false);
         Debug.Log("Boss02 Dead");
     }

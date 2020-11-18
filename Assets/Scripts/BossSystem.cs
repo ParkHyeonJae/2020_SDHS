@@ -10,6 +10,7 @@ public class BossSystem : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.Instance.PlayLoopSound("BGM");
         bosses.ForEach(e => e.SetBossSystem(this));
 
         SpawnBoss();

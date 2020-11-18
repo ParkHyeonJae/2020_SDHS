@@ -22,12 +22,13 @@ public class PaddleController : MonoBehaviour
     {
         while (gameObject.activeInHierarchy)
         {
-            if (PaddleChanger.paddleMode != lastedPaddle)
+            if (PaddleChanger.Instance.paddleMode != lastedPaddle)
             {
-                PaddleChanger.OnChangePaddle(PaddleChanger.paddleMode);
-                lastedPaddle = PaddleChanger.paddleMode;
+                PaddleChanger.OnChangePaddle(PaddleChanger.Instance.paddleMode);
+
+                lastedPaddle = PaddleChanger.Instance.paddleMode;
             }
-            switch (PaddleChanger.paddleMode)
+            switch (PaddleChanger.Instance.paddleMode)
             {
                 case PaddleMode.Limited:
                     dirVelocity = Vector3.right * Input.GetAxisRaw("Horizontal") * m_fSpeed;

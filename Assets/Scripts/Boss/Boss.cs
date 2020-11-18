@@ -101,9 +101,12 @@ public abstract class Boss : MonoBehaviour
 
     private void OnEnable()
     {
+        BallObject = null;
         InitPatterns();
         InitCoolTime();
         //BossHpPointBar.OnSetPoint(m_nHP);
+
+        
 
         brickGenerator = FindObjectOfType<BrickGenerator>();
         StartCoroutine(EBossLoop());
@@ -131,6 +134,10 @@ public abstract class Boss : MonoBehaviour
                 {
                     if (phase == BossPhase.Defense)
                         phase = BossPhase.Attack;
+
+                    normalBullet01.reset();
+                    normalBullet02.reset();
+                    missileBullet01.reset();
 
                     OnPhaseAlarm(phase);
 

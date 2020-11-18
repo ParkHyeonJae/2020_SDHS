@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalBullet : Bullet
+public class MissileBullet : Bullet
 {
     private void OnEnable()
     {
@@ -12,13 +12,22 @@ public class NormalBullet : Bullet
 
     IEnumerator Move()
     {
-        while(gameObject.activeInHierarchy)
+        while (gameObject.activeInHierarchy)
         {
             m_curTime += Time.deltaTime;
             if (m_curTime >= m_destroyTime)
             {
                 RemoveThisBullet();
             }
+            Transform playerTrans = FindObjectOfType<PaddleController>().transform;
+
+            transform.parent.localRotation = Quaternion.Euler(0, 0, 90);
+
+
+            float angle = Mathf.Atan2(playerTrans.position.y - transform.position.y
+                , playerTrans.position.x - transform.position.x) * Mathf.Rad2Deg;
+
+            transform.rotation = Quaternion.Euler(0, 0, angle);
             transform.Translate(Vector2.right * m_speed * Time.deltaTime, Space.Self);
             yield return null;
         }
@@ -32,7 +41,7 @@ public class NormalBullet : Bullet
 
             RemoveThisBullet();
         }
-        else if(coll.transform.CompareTag("Wall"))
+        else if (coll.transform.CompareTag("Wall"))
         {
             RemoveThisBullet();
         }

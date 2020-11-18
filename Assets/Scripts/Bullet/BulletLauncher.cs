@@ -40,3 +40,31 @@ public class CircleBulletLancher : BulletLauncher
         m_bIsFinish = true;
     }
 }
+
+
+public class MissileBulletLancher : BulletLauncher
+{
+    private objectPool missileBullet01 = null;
+    private Boss boss = null;
+    public MissileBulletLancher(Boss boss)
+    {
+        this.boss = boss;
+        this.missileBullet01 = boss.missileBullet01;
+    }
+
+    public override void LauncherInit()
+    {
+        m_bIsFinish = false;
+        Debug.Assert(boss != null, "NullRefernce");
+        Debug.Assert(missileBullet01 != null, "NullRefernce");
+    }
+
+    public override void LauncherUpdate()
+    {
+        GameObject _bullet = missileBullet01.pop();
+        _bullet.transform.GetChild(0).GetComponent<Bullet>().SetPool(missileBullet01);
+        _bullet.transform.GetChild(0).position = Camera.main.ScreenToWorldPoint(boss.transform.position) * new Vector2(1, 1);
+
+        m_bIsFinish = true;
+    }
+}

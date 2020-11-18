@@ -44,3 +44,25 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     public virtual void Init() { }
     public virtual void Destroy() { Destroy(this); }
 }
+
+public class SingletonM<T> : MonoBehaviour where T : MonoBehaviour
+{
+    public static T Instance
+    {
+        get
+        {
+            if (mInstnace == null)
+            {
+                mInstnace = FindObjectOfType<T>() as T;
+
+                if (mInstnace == null)
+                {
+                    mInstnace = new GameObject(typeof(T).ToString(), typeof(T)) as T;
+                }
+                //DontDestroyOnLoad(mInstnace);
+            }
+            return mInstnace;
+        }
+    }
+    private static T mInstnace;
+}

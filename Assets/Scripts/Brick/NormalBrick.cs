@@ -8,6 +8,6 @@ public sealed class NormalBrick : Brick
     {
         base.DestroyAction();
 
-
+        SoundManager.Instance.PlayOneShot("BreakBlock");
     }
 }
