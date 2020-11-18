@@ -32,7 +32,7 @@ public class CameraShake : MonoBehaviour
             mainCam.transform.position = startPos + Random.insideUnitSphere * force * Time.timeScale;
             yield return null;
         }
-        mainCam.transform.position = startPos;
+        mainCam.transform.position = new Vector3(0, 0, mainCam.transform.position.z);
         yield return null;
     }
 }

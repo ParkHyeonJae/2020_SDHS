@@ -106,14 +106,25 @@ public abstract class Boss : MonoBehaviour
         InitCoolTime();
         //BossHpPointBar.OnSetPoint(m_nHP);
 
-        
+        BossHpPointBar.InitalizeAll?.Invoke();
+        int offset = 8 - m_nHP;
+        for (int i = 0; i < offset; i++)
+        {
+            BossHpPointBar.OnAddPoint(-1);
+        }
+
 
         brickGenerator = FindObjectOfType<BrickGenerator>();
         StartCoroutine(EBossLoop());
-
+        StartCoroutine(BallDelay());
+        
+    }
+    
+    IEnumerator BallDelay()
+    {
+        yield return new WaitForSeconds(3.0f);
         SpawnBall();
     }
-
     public void SpawnBall()
     {
         BallObject = ballPool.pop();
@@ -134,10 +145,6 @@ public abstract class Boss : MonoBehaviour
                 {
                     if (phase == BossPhase.Defense)
                         phase = BossPhase.Attack;
-
-                    normalBullet01.reset();
-                    normalBullet02.reset();
-                    missileBullet01.reset();
 
                     OnPhaseAlarm(phase);
 

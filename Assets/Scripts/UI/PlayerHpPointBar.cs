@@ -7,6 +7,7 @@ public class PlayerHpPointBar : PointBar
     public static Action<int> OnAddPoint;
     public void SetPointCount(int maxPoint) => m_MaxPoint = maxPoint;
 
+    [SerializeField] bool m_bGodMode = false;
     private void Awake()
     {
         OnAddPoint = OnAddPointFunc;
@@ -14,6 +15,8 @@ public class PlayerHpPointBar : PointBar
     }
     public void OnAddPointFunc(int point)
     {
+        if (m_bGodMode == true)
+            return;
         AddPoint(point);
         if (IsDead())
             GameSystem.Instance.OnGameOver?.Invoke();

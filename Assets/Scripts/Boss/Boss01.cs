@@ -10,7 +10,7 @@ public class Boss01 : Boss
     protected override void InitPatterns()
     {
         bossPatterns.Add(new Pattern01(this));
-        bossPatterns.Add(new Pattern02(this));
+        //bossPatterns.Add(new Pattern02(this));
         
     }
 
@@ -28,6 +28,9 @@ public class Boss01 : Boss
                 StartCoroutine(AttackLoop());
                 break;
             case BossPhase.Defense:
+
+                normalBullet01.reset();
+                missileBullet01.reset();
                 GamePlayLine.SetActive(true);
 
                 PaddleChanger.Instance.SetPaddle(PaddleMode.Limited);

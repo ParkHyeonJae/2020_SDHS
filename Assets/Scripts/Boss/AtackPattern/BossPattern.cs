@@ -21,6 +21,8 @@ public class Pattern01 : BossPattern
 
     public IEnumerator Attack()
     {
+        yield return new WaitForSeconds(2.0f);
+
         while (!missileBulletLancher.m_bIsFinish)
         {
             missileBulletLancher.LauncherUpdate();
@@ -40,24 +42,45 @@ public class Pattern01 : BossPattern
             circleBulletLauncher.LauncherInit();
             yield return new WaitForSeconds(1.0f);
         }
-        
+        yield return new WaitForSeconds(2.0f);
     }
 }
 public class Pattern02 : BossPattern
 {
+    private CircleBulletLancher circleBulletLauncher;
+    private MissileBulletLancher missileBulletLancher;
+
     private Boss m_Boss;
     public Pattern02(Boss m_Boss)
     {
         this.m_Boss = m_Boss;
+        circleBulletLauncher = new CircleBulletLancher(m_Boss);
+        missileBulletLancher = new MissileBulletLancher(m_Boss);
     }
 
     public IEnumerator Attack()
     {
-        Debug.Log("Pattern2 시작");
+        yield return new WaitForSeconds(2.0f);
+        for (int i = 0; i < 5; i++)
+        {
+            while (!circleBulletLauncher.m_bIsFinish)
+            {
+                circleBulletLauncher.LauncherUpdate();
+                yield return null;
+            }
+            circleBulletLauncher.LauncherInit();
+            yield return new WaitForSeconds(1.0f);
 
-        //Debug.Log("공격4");
-        //CameraShake.OnShake(1f, 0.1f);
-        //yield return new WaitForSeconds(1.0f);
-        yield return null;
+            
+            while (!missileBulletLancher.m_bIsFinish)
+            {
+                missileBulletLancher.LauncherUpdate();
+                yield return null;
+            }
+            missileBulletLancher.LauncherInit();
+        }
+        
+
+        yield return new WaitForSeconds(1.0f);
     }
 }

@@ -10,7 +10,7 @@ public class Boss02 : Boss
     protected override void InitPatterns()
     {
         bossPatterns.Add(new Pattern01(this));
-        bossPatterns.Add(new Pattern02(this));
+        //bossPatterns.Add(new Pattern02(this));
         
     }
 

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 public abstract class PointBar : MonoBehaviour
 {
-    protected int m_MaxPoint = 1;
+    [SerializeField] protected int m_MaxPoint = 8;
 
     [SerializeField] int m_nCurPointCount = 0;
 
@@ -26,6 +27,14 @@ public abstract class PointBar : MonoBehaviour
 
     private void OnEnable() => Initialize();
 
+    public void InitalizeAllElement()
+    {
+        m_nCurPointCount = m_MaxPoint;
+        point_objects.ToList().ForEach(e =>
+        {
+            e.SetActive(true);
+        });
+    }
 
     [ContextMenu("TEST_DECREASE")]
     public void TEST_DECREASE()

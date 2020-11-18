@@ -13,7 +13,7 @@ public class DeadLine : MonoBehaviour
             Boss boss = FindObjectOfType<Boss>();
             boss.ballPool.reset();
             boss.SpawnBall();
-            CameraShake.OnShake(0.5f, 1.0f);
+            CameraShake.OnShake(0.3f, 0.1f);
             PlayerHpPointBar.OnAddPoint(-1);
             //playerHp.AddPoint(-1);
             //if (playerHp.IsDead())
