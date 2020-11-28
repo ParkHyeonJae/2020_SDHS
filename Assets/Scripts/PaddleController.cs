@@ -18,16 +18,13 @@ public class PaddleController : MonoBehaviour
 
     [SerializeField] Toggle toggle = null;
 
-    public void onChangeedValue(bool state)
-    {
-        Debug.Log("실행이 되나");
-        isTouch = state;
-    }
+    Vector3 startPos = Vector3.zero;
 
     private void OnEnable()
     {
-        Debug.Assert(toggle != null, "NullRef");
+        Debug.Assert(toggle != null, "NullReference");
         rigidbody2D = GetComponent<Rigidbody2D>();
+        startPos = transform.position;
         StartCoroutine(Loop());
     }
     IEnumerator Loop()
@@ -48,7 +45,7 @@ public class PaddleController : MonoBehaviour
                     if (isTouch)
                     {
                         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        transform.localPosition = new Vector2(mousePos.x, transform.localPosition.y);
+                        transform.position = new Vector2(mousePos.x, -3.3f);
                     }
                     else
                     {
@@ -60,15 +57,12 @@ public class PaddleController : MonoBehaviour
                     if (isTouch)
                     {
                         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        Debug.Log(mousePos);
-                        transform.localPosition = new Vector2(mousePos.x, mousePos.y);
+                        transform.position = new Vector2(mousePos.x, mousePos.y);
                     }
                     else
                     {
                         dirVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * m_fSpeed;
                         rigidbody2D.velocity = dirVelocity;
-
-                        Debug.Log($"Width : {Screen.width * 2}, Height : {Screen.height * 2}");
                         transform.position =
                             new Vector2(
                                 Mathf.Clamp(transform.position.x, -2.5f, 2.5f)

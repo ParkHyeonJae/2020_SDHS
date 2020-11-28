@@ -90,6 +90,7 @@ public class BrickGenerator : MonoBehaviour
     }
     private void SetBrickPosition(GameObject target,  Vector3 startPosition, int row, int height, float spacing)
     {
+        Debug.Log("row * spacing : " + row * spacing);
         target.transform.position = new Vector3(
                 startPosition.x + row * spacing
                 , startPosition.y + height * spacing, 0);

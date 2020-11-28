@@ -7,15 +7,17 @@ public class PlayerHpPointBar : PointBar
     public static Action<int> OnAddPoint;
     public void SetPointCount(int maxPoint) => m_MaxPoint = maxPoint;
 
-    [SerializeField] bool m_bGodMode = false;
+    [SerializeField] UnityEngine.UI.Toggle m_godModeToggle = null;
     private void Awake()
     {
+        Debug.Assert(m_godModeToggle != null, "NullReference");
+
         OnAddPoint = OnAddPointFunc;
         SetPointCount(MaxPoint);
     }
     public void OnAddPointFunc(int point)
     {
-        if (m_bGodMode == true)
+        if (m_godModeToggle.isOn)
             return;
         AddPoint(point);
         if (IsDead())

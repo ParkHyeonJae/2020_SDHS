@@ -62,8 +62,8 @@ public class MissileBulletLancher : BulletLauncher
     public override void LauncherUpdate()
     {
         GameObject _bullet = missileBullet01.pop();
-        _bullet.transform.GetChild(0).GetComponent<Bullet>().SetPool(missileBullet01);
-        _bullet.transform.GetChild(0).position = Camera.main.ScreenToWorldPoint(boss.transform.position) * new Vector2(1, 1);
+        _bullet.transform.GetComponent<Bullet>().SetPool(missileBullet01);
+        _bullet.transform.position = Camera.main.ScreenToWorldPoint(boss.transform.position) * new Vector2(1, 1);
 
         m_bIsFinish = true;
     }

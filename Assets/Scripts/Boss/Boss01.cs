@@ -76,6 +76,7 @@ public class Boss01 : Boss
     {
         base.BossDead();
         gameObject.SetActive(false);
+        PlayerPrefs.SetInt("1", 1);
         Debug.Log("Boss01 Dead");
     }
 }

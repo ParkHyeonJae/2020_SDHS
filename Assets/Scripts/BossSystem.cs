@@ -18,7 +18,9 @@ public class BossSystem : MonoBehaviour
 
     public void SpawnBoss()
     {
-        bosses[sequence++].gameObject.SetActive(true);
+        
+        bosses[(int)StageSystem.spawnBossType].gameObject.SetActive(true);
+        sequence++;
         sequence %= bosses.Count;
     }
 }
